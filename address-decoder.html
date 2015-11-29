@@ -1,0 +1,66 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html"></link>
+
+<!--
+	@demo demo/index.html
+-->
+<dom-module id="address-decoder">
+	<template>
+		<iron-ajax
+			id="ajax"
+			verbose
+			url="http://nominatim.openstreetmap.org/search"
+			params='{{_ajaxBody}}'
+			handle-as="json"
+			on-response="_finishedGeocoding">
+		</iron-ajax>
+	</template>
+</dom-module>
+
+<script>
+	Polymer({
+		is : 'address-decoder',
+		properties : {
+			
+			/**
+			 * Returns the address object once the input is set
+			 * and geoCodeAddress is called
+			 */
+			address : {
+				type : Object,
+				notify : true
+			},
+			
+			/**
+			 * Holds the address query string
+			 */
+			input : String,
+			
+			/**
+			 * Computed variable to bind the parameters for
+			 * the ajax call
+			 */
+			_ajaxBody : {
+				type : Object,
+				computed : '_processBody(input)'
+			}
+		},
+		
+		/**
+		 * Starts the ajax call to convert the input
+		 * search string into an address object
+		 */
+		getGeocodeAddress : function() {
+			this.$.ajax.generateRequest();
+		},
+		
+		_finishedGeocoding : function (request) {
+			this.address = request.detail.response[0];
+		},
+		
+		_processBody : function (input) {
+			return {"format" : "json", "q" : input};
+		}
+
+	});
+</script>

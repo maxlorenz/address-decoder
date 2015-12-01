@@ -63,6 +63,10 @@
 			this.$.ajax.generateRequest();
 		},
 		
+		clearResults : function () {
+			this.addresses = null;
+		},
+		
 		_finishedGeocoding : function (request) {
 			this.addresses = request.detail.response;
 		},

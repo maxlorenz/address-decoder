@@ -51,6 +51,15 @@
 		 * search string into an address array
 		 */
 		geocode : function() {
+			var requests = document.querySelector('#ajax').activeRequests;
+			
+			// Abort pending requests
+			if (requests.length > 0) {
+				for (var i = 0; i < requests.length; i++) {
+					requests[i].abort();
+				}
+			}
+			
 			this.$.ajax.generateRequest();
 		},
 		

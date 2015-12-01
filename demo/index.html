@@ -1,35 +1,38 @@
 <!doctype html>
 
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-    <title>address-decoder Demo</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="../address-decoder.html">
-  </head>
-  <body unresolved>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+		<title>address-decoder Demo</title>
+		<script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+		<link rel="import" href="../address-decoder.html">
+	</head>
+	<body unresolved>
 
-    <template is="dom-bind">
-      <input type="text" value="{{ query::input }}">
-      <button onclick="document.querySelector('address-decoder').getGeocodeAddress()">Find address</button>
+		<template is="dom-bind">
+			<input type="text" value="{{ query::input }}">
+			<button onclick="document.querySelector('address-decoder').geocode()">Find addresses</button>
 
-      <address-decoder input="{{ query }}" address="{{ address }}"></address-decoder>
+			<address-decoder input="{{ query }}" addresses="{{ addresses }}"></address-decoder>
 
-      <p>boundingbox: {{ address.boundingbox }}</p>
-      <p>class: {{ address.class }}</p>
-      <p>display_name: {{ address.display_name }}</p>
-      <p>icon: <img src="{{ address.icon }}"></p>
-      <p>importance: {{ address.importance }}</p>
-      <p>lat: {{ address.lat }}</p>
-      <p>licence: {{ address.licence }}</p>
-      <p>lon: {{ address.lon }}</p>
-      <p>osm_id: {{ address.osm_id }}</p>
-      <p>osm_type: {{ address.osm_type }}</p>
-      <p>place_id: {{ address.place_id }}</p>
-      <p>type: {{ address.type }}</p>
-      
-    </template>
+			<template is="dom-repeat" items="{{ addresses }}">
+				<h3>{{ item.display_name }}</h3>
+				<p>boundingbox: {{ item.boundingbox }}</p>
+				<p>class: {{ item.class }}</p>
+				<p>display_name: {{ item.display_name }}</p>
+				<p>icon: <img src="{{ item.icon }}"></p>
+				<p>importance: {{ item.importance }}</p>
+				<p>lat: {{ item.lat }}</p>
+				<p>licence: {{ item.licence }}</p>
+				<p>lon: {{ item.lon }}</p>
+				<p>osm_id: {{ item.osm_id }}</p>
+				<p>osm_type: {{ item.osm_type }}</p>
+				<p>place_id: {{ item.place_id }}</p>
+				<p>type: {{ item.type }}</p>
+			</template>
+			
+		</template>
 
-  </body>
+	</body>
 </html>

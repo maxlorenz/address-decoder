@@ -23,16 +23,16 @@
 		properties : {
 			
 			/**
-			 * Returns the address object once the input is set
-			 * and geoCodeAddress is called
+			 * Returns the addresses array once the input is set
+			 * and geocode is called
 			 */
-			address : {
-				type : Object,
+			addresses : {
+				type : Array,
 				notify : true
 			},
 			
 			/**
-			 * Holds the address query string
+			 * Holds the addresses query string
 			 */
 			input : String,
 			
@@ -48,14 +48,14 @@
 		
 		/**
 		 * Starts the ajax call to convert the input
-		 * search string into an address object
+		 * search string into an address array
 		 */
-		getGeocodeAddress : function() {
+		geocode : function() {
 			this.$.ajax.generateRequest();
 		},
 		
 		_finishedGeocoding : function (request) {
-			this.address = request.detail.response[0];
+			this.addresses = request.detail.response;
 		},
 		
 		_processBody : function (input) {
